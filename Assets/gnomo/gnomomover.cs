@@ -5,11 +5,13 @@ public class gnomomover : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Camera cam;
+    public Animator animator;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         cam = Camera.main;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -23,7 +25,14 @@ public class gnomomover : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 agent.SetDestination(hit.point);
+                
             }
         }
-    }
+       
+
+         if (agent.velocity.magnitude > 0.1f)
+                animator.SetBool("isWalking", true);
+        else
+            animator.SetBool("isWalking", false);
+        }
 }
